@@ -31,7 +31,6 @@ RUN apt-get update && \
     # Pipewire client libraries (Corrected package name)
     libpipewire-0.3-0 \
     neofetch \
-    vi \
     && \
     # --- Clean up apt ---
     apt-get clean && \
