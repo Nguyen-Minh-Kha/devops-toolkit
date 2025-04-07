@@ -25,11 +25,11 @@ RUN apt-get update && \
     python3.11-venv \
     awscli \
     ansible \
-    # Systemd related packages (see note in previous responses about running systemd in Docker)
+    # Systemd related packages (see note about running systemd in Docker)
     systemd \
     libpam-systemd \
-    # Pipewire client libraries
-    pipewire-audio-client-libraries \
+    # Pipewire client libraries (Corrected package name)
+    libpipewire-0.3-0 \
     neofetch \
     vi \
     && \
@@ -39,7 +39,11 @@ RUN apt-get update && \
 
 # --- Install Azure CLI ---
 # Ref: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt
-RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+# Note: The Azure CLI script might run apt-get update/install itself.
+RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash && \
+    # --- Clean up apt potentially used by script ---
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # --- Install Terraform ---
 # Ref: https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
