@@ -68,19 +68,5 @@ RUN KUBECTL_LATEST_VERSION=$(curl -L -s https://dl.k8s.io/release/stable.txt) &&
 # Ref: https://helm.sh/docs/intro/install/#from-script
 RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
-# Verify installations (optional)
-RUN git --version && \
-    az --version && \
-    aws --version && \
-    python3 --version && \
-    python3 -m venv --help && \ # Verify venv module is available
-    pip3 --version && \
-    ansible --version && \
-    terraform --version && \
-    kubectl version --client --output=yaml && \
-    helm version --client && \
-    systemctl --version && \
-    dpkg -s pipewire-audio-client-libraries
-
 # Set a default command (e.g., open a bash shell)
 CMD ["/bin/bash"]
